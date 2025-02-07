@@ -4,6 +4,7 @@ import { Shield, Menu, X } from 'lucide-react';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [walletConnected, setWalletConnected] = useState(false);
   const location = useLocation();
 
   const navigation = [
@@ -14,6 +15,19 @@ const Navbar = () => {
     { name: 'Beneficiaries', href: '/beneficiaries' },
     { name: 'Governance', href: '/governance' },
   ];
+
+  const handleConnectWallet = async () => {
+    try {
+      if (!walletConnected) {
+        // Redirect to Internet Identity authentication page
+        window.location.href = 'https://identity.ic0.app'; // ICP Internet Identity Login
+      } else {
+        alert('Wallet already connected');
+      }
+    } catch (error) {
+      console.error('Error connecting wallet:', error);
+    }
+  };
 
   return (
     <nav className="bg-gray-900/50 backdrop-blur-md border-b border-gray-800">
@@ -44,9 +58,9 @@ const Navbar = () => {
               ))}
               <button
                 className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors duration-200"
-                onClick={() => {/* Add Internet Identity login logic */}}
+                onClick={handleConnectWallet}
               >
-                Connect Wallet
+                {walletConnected ? 'Connected' : 'Connect Wallet'}
               </button>
             </div>
           </div>
@@ -87,9 +101,9 @@ const Navbar = () => {
             ))}
             <button
               className="w-full text-left bg-blue-600 hover:bg-blue-700 text-white px-3 py-2 rounded-md text-base font-medium"
-              onClick={() => {/* Add Internet Identity login logic */}}
+              onClick={handleConnectWallet}
             >
-              Connect Wallet
+              {walletConnected ? 'Connected' : 'Connect Wallet'}
             </button>
           </div>
         </div>
