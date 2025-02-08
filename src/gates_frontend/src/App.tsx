@@ -1,18 +1,27 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { Shield, Key, FileText, Users, Activity, HelpCircle, Menu, X } from 'lucide-react';
-import Navbar from './components/Navbar';
-import Home from './pages/Home';
-import Dashboard from './pages/Dashboard';
-import CreateWill from './pages/CreateWill';
-import Assets from './pages/Assets';
-import Beneficiaries from './pages/Beneficiaries';
-import Governance from './pages/Governance';
-import AddAsset from './pages/AddAsset';
-import AddBeneficiary from './pages/AddBeneficiary';
-import FileDispute from './pages/FileDispute';
-import ArbitratorPanel from './pages/ArbitratorPanel';
-
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+  Shield,
+  Key,
+  FileText,
+  Users,
+  Activity,
+  HelpCircle,
+  Menu,
+  X,
+} from "lucide-react";
+import Navbar from "./components/Navbar";
+import Home from "./pages/Home";
+import Dashboard from "./pages/Dashboard";
+import CreateWill from "./pages/CreateWill";
+import Assets from "./pages/Assets";
+import Beneficiaries from "./pages/Beneficiaries";
+import Governance from "./pages/Governance";
+import AddAsset from "./pages/AddAsset";
+import AddBeneficiary from "./pages/AddBeneficiary";
+import FileDispute from "./pages/FileDispute";
+import ArbitratorPanel from "./pages/ArbitratorPanel";
+import KycVerificationPage from "./pages/KycVerification";
 function App() {
   return (
     <Router>
@@ -28,6 +37,10 @@ function App() {
           <Route path="/add-beneficiary" element={<AddBeneficiary />} />
           <Route path="/governance" element={<Governance />} />
           <Route path="/file-dispute" element={<FileDispute />} />
+          <Route
+            path="/kyc-verification"
+            element={<KycVerificationPage userPrincipal="" />}
+          />
           <Route path="/arbitrator-panel" element={<ArbitratorPanel />} />
         </Routes>
       </div>

@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Shield, Menu, X } from 'lucide-react';
+import { AuthClient } from '@dfinity/auth-client';
+import { ClientLogin } from '@calimero-network/calimero-client';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -8,24 +10,32 @@ const Navbar = () => {
   const location = useLocation();
 
   const navigation = [
-    { name: 'Home', href: '/' },
-    { name: 'Dashboard', href: '/dashboard' },
-    { name: 'Create Will', href: '/create-will' },
-    { name: 'Assets', href: '/assets' },
-    { name: 'Beneficiaries', href: '/beneficiaries' },
-    { name: 'Governance', href: '/governance' },
+    { name: "Home", href: "/" },
+    { name: "Dashboard", href: "/dashboard" },
+    { name: "Create Will", href: "/create-will" },
+    { name: "Assets", href: "/assets" },
+    { name: "Beneficiaries", href: "/beneficiaries" },
+    { name: "Governance", href: "/governance" },
+    { name: "KYC Verification", href: "/kyc-verification" },
   ];
 
   const handleConnectWallet = async () => {
-    try {
-      if (!walletConnected) {
-        // Redirect to Internet Identity authentication page
-        window.location.href = 'https://identity.ic0.app'; // ICP Internet Identity Login
-      } else {
-        alert('Wallet already connected');
-      }
-    } catch (error) {
-      console.error('Error connecting wallet:', error);
+    if (!walletConnected) {
+      const authClient = await AuthClient.create();
+      authClient.login({
+        identityProvider: "https://identity.ic0.app",
+        onSuccess: () => {
+          // Handle successful authentication here
+          console.log("Login successful");
+          setWalletConnected(true);
+          // Update UI or state as necessary
+        },
+        onError: (error) => {
+          console.error("Login failed:", error);
+        },
+      });
+    } else {
+      alert("Wallet already connected");
     }
   };
 
